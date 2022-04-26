@@ -19,11 +19,6 @@ public class RfcController {
 
     private static final String RFC_DIR_PATH = System.getenv("RFC_DIR_PATH");
 
-    @RequestMapping("/rfc/test")
-    public String test() {
-        return "HelloWorld";
-    }
-
     @RequestMapping("/rfc/all")
     public List<String> rfcFileNames() {
         return getRFCs();
@@ -89,12 +84,6 @@ public class RfcController {
         }
 
         return responses;
-    }
-
-
-    private String fileToString(File file) {
-        List<String> fileTextLines = getFileTextLines(file);
-        return String.join("\n", fileTextLines);
     }
 
 
