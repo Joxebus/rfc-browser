@@ -1,4 +1,4 @@
-package io.github.joxebus;
+package io.github.joxebus.controller;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import io.github.joxebus.bean.RfcResponse;
+import io.github.joxebus.bean.RfcTextLine;
 
 @RestController
 public class RfcController {

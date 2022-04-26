@@ -1,4 +1,4 @@
-package io.github.joxebus;
+package io.github.joxebus.bean;
 
 import java.util.List;
 

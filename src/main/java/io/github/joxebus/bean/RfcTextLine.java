@@ -1,4 +1,4 @@
-package io.github.joxebus;
+package io.github.joxebus.bean;
 
 public class RfcTextLine {
     private int line;
