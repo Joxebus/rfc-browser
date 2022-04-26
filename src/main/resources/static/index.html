@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <link rel="stylesheet" href="index.css">
+
+    <meta charset="UTF-8">
+    <title>RFC Browser</title>
+</head>
+<body>
+    <div id="spinner" class="spinner"></div>
+    <div id="app">
+        <h1>RFC-Browser</h1>
+
+        <div id="searchInputsContainer">
+            <label>
+                Search text:
+                <input type="text" style="width: 400px" v-model="textToSearch">
+                <button @click="findRfcWithText(textToSearch)">Search</button>
+            </label>
+        </div>
+
+        <div id="leftPane">
+            <div id="rfcListTitle">
+                <h3>All RFCs</h3>
+            </div>
+            <div id="rfcListContainer">
+                <ul style="list-style-position: inside">
+                    <li v-for="rfcName in rfcNames">
+                        <a @click="getRfcContent(rfcName)">{{ rfcName }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="currentRfcContentContainer">
+            <div id="rfcContent" v-for="currentRfc in currentRfcs">
+                <h3 style="alignment: right">RFC: {{ currentRfc.name }}</h3>
+                <span style="display: block" v-for="textLine in currentRfc.content">
+                    <span style="background: #bababa; color: gray; display: inline-block; width: 40px;">
+                        {{ textLine.line }}
+                    </span>
+                    <span>{{ textLine.text }}</span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
