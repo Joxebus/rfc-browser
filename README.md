@@ -20,6 +20,8 @@ In oder to get the files to test this application you can go to the following [l
 
 ## How to run this project
 
+Setup `RFC_DIR_PATH` env variable pointing to your `RFC` downloaded sources and then run the following command.
+
 ```bash
 ./mvnw spring-boot:run
 ```

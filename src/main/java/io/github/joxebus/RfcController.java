@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RfcController {
 
-    private static final String RFC_DIRPATH = "/Users/omarbautista/Documents/rfc-sources";
+    private static final String RFC_DIR_PATH = System.getenv("RFC_DIR_PATH");
 
     @RequestMapping("/rfc/test")
     public String test() {
@@ -43,7 +43,7 @@ public class RfcController {
 
         List<RfcTextLine> textLines = new ArrayList<>();
 
-        List<String> fileTextLines = getFileTextLines(new File(RFC_DIRPATH, name));
+        List<String> fileTextLines = getFileTextLines(new File(RFC_DIR_PATH, name));
 
 
         for (int i = 0; i < fileTextLines.size(); i++) {
@@ -72,7 +72,7 @@ public class RfcController {
             rfcResponse.setFilename(filename);
 
             List<RfcTextLine> textLines = new ArrayList<>();
-            List<String> fileTextLines = getFileTextLines(new File(RFC_DIRPATH, filename));
+            List<String> fileTextLines = getFileTextLines(new File(RFC_DIR_PATH, filename));
             for (int i = 0; i < fileTextLines.size(); i++) {
                 String line = fileTextLines.get(i).toLowerCase();
                 if (line.contains(text)) {
@@ -123,7 +123,7 @@ public class RfcController {
                 return name.endsWith(".txt");
             }
         };
-        File folder = new File(RFC_DIRPATH);
+        File folder = new File(RFC_DIR_PATH);
         return Arrays.asList(folder.list(onlyTxtFilter));
     }
 
