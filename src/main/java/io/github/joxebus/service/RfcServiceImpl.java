@@ -38,7 +38,7 @@ public class RfcServiceImpl implements RfcService {
                 log.error("The file [{}] cannot be processed", filename);
             }
         });
-        return responses;
+        return Collections.unmodifiableList(responses);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class RfcServiceImpl implements RfcService {
             log.info("Loading RFC filenames from path [{}]", RFC_DIR_PATH);
             rfcFilenames = RfcFileUtil.getFileNames(RFC_DIR_PATH);
         }
-        return rfcFilenames;
+        return Collections.unmodifiableList(rfcFilenames);
     }
 
 

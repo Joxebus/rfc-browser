@@ -1,5 +1,6 @@
 package io.github.joxebus.bean;
 
+import java.util.Collections;
 import java.util.List;
 
 public class RfcResponse {
@@ -16,7 +17,7 @@ public class RfcResponse {
     }
 
     public List<RfcTextLine> getContent() {
-        return content;
+        return Collections.unmodifiableList(content);
     }
 
     public void setContent(List<RfcTextLine> content) {

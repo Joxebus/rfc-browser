@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -50,6 +51,6 @@ public final class RfcFileUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return fileTextLines;
+        return Collections.unmodifiableList(fileTextLines);
     }
 }
