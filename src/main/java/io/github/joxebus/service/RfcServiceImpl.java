@@ -28,7 +28,7 @@ public class RfcServiceImpl implements RfcService {
     public List<RfcResponse> findFilesWithText(final String text) {
         log.info("Looking for text: {}", text);
         List<RfcResponse> responses = new ArrayList<>();
-        for (String filename: getRfcFilenames()) {
+        getRfcFilenames().stream().parallel().forEach( filename -> {
             try {
                 RfcResponse rfcResponse = getRfcTextLinesAsResponse(filename, text);
                 if (!rfcResponse.getContent().isEmpty()) {
@@ -37,7 +37,7 @@ public class RfcServiceImpl implements RfcService {
             } catch (RfcException rfcException) {
                 log.error("The file [{}] cannot be processed", filename);
             }
-        }
+        });
         return responses;
     }
 
