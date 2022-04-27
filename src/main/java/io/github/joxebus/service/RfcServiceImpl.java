@@ -1,13 +1,14 @@
 package io.github.joxebus.service;
 
-import static io.github.joxebus.common.RfcFileUtil.TXT_EXTENSION;
-
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import io.github.joxebus.bean.RfcResponse;
@@ -18,12 +19,14 @@ import io.github.joxebus.exception.RfcException;
 @Service
 public class RfcServiceImpl implements RfcService {
 
+    private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass().getName());
     private static final String RFC_DIR_PATH = System.getenv("RFC_DIR_PATH");
 
     private List<String> rfcFilenames;
 
     @Override
     public List<RfcResponse> findFilesWithText(final String text) {
+        log.info("Looking for text: {}", text);
         List<RfcResponse> responses = new ArrayList<>();
         for (String filename: getRfcFilenames()) {
             try {
@@ -32,7 +35,7 @@ public class RfcServiceImpl implements RfcService {
                     responses.add(rfcResponse);
                 }
             } catch (RfcException rfcException) {
-                rfcException.printStackTrace();
+                log.error("The file [{}] cannot be processed", filename);
             }
         }
         return responses;
@@ -51,8 +54,9 @@ public class RfcServiceImpl implements RfcService {
 
     @Override
     public List<RfcTextLine> getRfcTextLines(final String filename, final String filter) {
-
-        if(Objects.isNull(filename) || getRfcFilenames().contains(filename.concat(TXT_EXTENSION))) {
+        log.debug("Reading file [{}] with filter [{}]", filename, filter);
+        if(Objects.isNull(filename) || !getRfcFilenames().contains(filename)) {
+            log.warn("The file [{}] is not valid ", filename);
             return Collections.emptyList();
         }
 
@@ -73,6 +77,7 @@ public class RfcServiceImpl implements RfcService {
     @Override
     public List<String> getRfcFilenames() {
         if(Objects.isNull(rfcFilenames) || rfcFilenames.isEmpty()) {
+            log.info("Loading RFC filenames from path [{}]", RFC_DIR_PATH);
             rfcFilenames = RfcFileUtil.getFileNames(RFC_DIR_PATH);
         }
         return rfcFilenames;
